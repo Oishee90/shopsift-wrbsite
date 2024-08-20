@@ -1,6 +1,7 @@
 import Banner from "./Banner";
 import { Helmet } from "react-helmet-async";
 import Header from "../../Root/Header";
+import AllProducts from "./AllProducts";
 
 
 const Home = () => {
@@ -9,6 +10,7 @@ const Home = () => {
               <Helmet><title>ShopSift|Register</title></Helmet>
               <Header></Header>
             <Banner></Banner>
+            <AllProducts></AllProducts>
         </div>
     );
 };
