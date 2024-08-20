@@ -39,7 +39,7 @@ const AllProducts = () => {
       useEffect(() => {
         const getData = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/products');
+                const { data } = await axios.get('https://shop-server-seven.vercel.app/products');
                 const categories = data.products.map(product => product.category); // Extract category names
                 const uniqueCategories = [...new Set(categories)]; // Remove duplicate category names
                 setAllCategories(uniqueCategories); // Set unique category names
@@ -53,7 +53,7 @@ const AllProducts = () => {
       useEffect(() => {
         const getData = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5000/products');
+                const { data } = await axios.get('https://shop-server-seven.vercel.app/products');
                 const brands = data.products.map(product => product.brand); // Extract brand names
                 const uniqueBrands = [...new Set(brands)]; // Remove duplicate brand names
                 setAllBrands(uniqueBrands); // Set unique brand names
@@ -68,7 +68,7 @@ const AllProducts = () => {
    
 
       const getData = async () => {
-        const { data } = await axios.get(`http://localhost:5000/products`, {
+        const { data } = await axios.get(`https://shop-server-seven.vercel.app/products`, {
             params: {
                 search,
                 order,

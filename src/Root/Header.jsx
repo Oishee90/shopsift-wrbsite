@@ -10,7 +10,7 @@ const Header = () => {
     const navlinks = <>
     <li className={`font-oswald text-xs lg:text-lg ml-5   `}  id="sidebar"><NavLink to={"/"}>Home</NavLink></li>
     
-    <li className={`font-oswald text-xs lg:text-lg ml-5  `} id="sidebar"> <NavLink to={"/mylist"}>About</NavLink></li>
+    <li className={`font-oswald text-xs lg:text-lg ml-5  `} id="sidebar"> <NavLink >Shop</NavLink></li>
 
     
   </>
