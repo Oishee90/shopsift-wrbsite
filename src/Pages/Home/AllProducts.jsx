@@ -19,8 +19,8 @@ import { useEffect, useState } from "react";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
-    // const [order, setOrder] = useState("");
-    // const [search, setSearch] = useState("");
+    const [order, setOrder] = useState("");
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         AOS.init({
@@ -61,24 +61,26 @@ const AllProducts = () => {
     //   // console.log(text)
     //  }
  
-    //   const handleSortChange = (e) => {
-    //     const selectedSortOrder = e.target.value;
-    //     setOrder(selectedSortOrder);
-
-    //     const sortedFoods = [...foods].sort((a, b) => {
-    //         const dateA = new Date(a.expiredDateTime);
-    //         const dateB = new Date(b.expiredDateTime);
-
-    //         if (selectedSortOrder === "ascending") {
-    //             return dateA - dateB;
-    //         } else if (selectedSortOrder === "descending") {
-    //             return dateB - dateA;
-    //         }
-    //         return 0;
-    //     });
-
-    //     setFoods(sortedFoods);
-    // };
+    const handleSortChange = (e) => {
+      const selectedSortOrder = e.target.value;
+      setOrder(selectedSortOrder);
+  
+      const sortedProducts = [...products].sort((a, b) => {
+          if (selectedSortOrder === "priceLowToHigh") {
+              return a.price - b.price; // Sort by price, low to high
+          } else if (selectedSortOrder === "priceHighToLow") {
+              return b.price - a.price; // Sort by price, high to low
+          } else if (selectedSortOrder === "dateNewestFirst") {
+            const dateA = new Date(a.createdAt);
+            const dateB = new Date(b.createdAt);
+            console.log(dateA, dateB); // Debugging: Check the dates
+            return dateA - dateB; // Sort by date, newest first
+        }
+          return 0; // Default, no sorting
+      });
+  
+      setProducts(sortedProducts);
+  };
   
   
  
@@ -94,7 +96,37 @@ const AllProducts = () => {
                  <h1 className='text-center  p-5 text-4xl font-oswald font-semiboldbold'> Explore Our Premium Products</h1>
                  <div className='justify-center mx-auto border-b-2 h-px w-[100px]  border-green-700 '></div>
                  <p className='text-center p-5 mx-auto mb-6 text-lg font-raleway '>Discover a curated selection of top-quality products designed to meet your needs and elevate your lifestyle. Whether you're looking for the latest tech gadgets, home essentials, or unique gifts, our diverse collection offers something for everyone. </p>
-     
+                 <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+          {/* <form onSubmit={handleSearch}>
+                <div className="flex justify-start">
+        <div className="relative w-full max-w-md">
+          <input
+            type="text"
+            name="search"
+            placeholder="Search for delicious foods..."
+            className="w-full py-3 pl-10 pr-4 text-sm rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+          />
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <FaSearch className="text-gray-400" />
+          </div>
+        </div>
+      </div>
+      </form> */}
+      {/* sort and toogle start */}
+      <div className="flex items-center justify-between gap-6 font-raleway">
+        
+      <div className="flex">
+    <select className="p-2 border border-green-300 rounded-md" value={order} onChange={handleSortChange}>
+        <option value="">Sort Products</option>
+        <option value="priceLowToHigh">Price: Low to High</option>
+        <option value="priceHighToLow">Price: High to Low</option>
+        <option value="dateNewestFirst">Date Added: Newest first</option>
+    </select>
+</div>
+    
+      </div>
+       {/* sort and toogle end*/}
+       </div>
         {/* card start */}
         <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10"
                 
@@ -102,7 +134,7 @@ const AllProducts = () => {
       {
  
     products.map(product => 
-         <div key={product._id}  className="card rounded-lg  bg-green-100  text-black hover:bg-white shadow-lg borde hover:text-black border-blue-100 hover:border-purple-700 hover:transition hover:duration-1000 ease-in  cursor-pointer hover:shadow-2xl">
+         <div key={product._id}  className="card rounded-lg  bg-blue-50  text-black hover:bg-white shadow-lg borde hover:text-black border-blue-100 hover:border-purple-700 hover:transition hover:duration-1000 ease-in  cursor-pointer hover:shadow-2xl">
          <div className="relative h-[400px]">
          <figure className="h-full flex flex-grow w-full rounded-lg "><img className="h-full flex-grow w-full " src={product.image} alt="Food" /></figure>
          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black  "></div>
@@ -118,7 +150,7 @@ const AllProducts = () => {
      </div>
    </div>
            <h2 className="card-title font-extrabold font-oswald w-1/2">{product.name}:</h2>
-           <div className=' border-b-2 h-px w-[61px]   border-green-700 mb-2 '></div>
+           <div className=' border-b-2 h-px w-[61px]   border-[#FC4100] mb-2 '></div>
                    
 
                  
@@ -129,7 +161,7 @@ const AllProducts = () => {
        
      
        <div className="card-actions justify-end">
-             <Link to={`/food/${product._id}`}><button className="btn font-raleway text-xs font-bold rounded-xl bg-green-50 hover:bg-[#FFA62F] transition-all duration-300 ease-in-out border border-[#FFA62F]">View Details</button></Link>
+             <Link to={`/food/${product._id}`}><button className="btn font-raleway text-xs font-bold rounded-xl bg-green-50 hover:bg-[#FC4100] transition-all duration-300 ease-in-out border border-[#FFA62F]">View Details</button></Link>
           
            </div>
          </div>
