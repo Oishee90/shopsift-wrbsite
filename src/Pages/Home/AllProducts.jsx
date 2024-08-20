@@ -24,6 +24,10 @@ const AllProducts = () => {
     const [brandFilter, setBrandFilter] = useState("");
     const [categoryFilter, setCategoryFilter] = useState("");
     const [priceRange, setPriceRange] = useState("");
+     const [currentPage, setCurrentPage] = useState(1); // For pagination
+    const [totalPages, setTotalPages] = useState(1); // For pagination
+    const [allBrands, setAllBrands] = useState([]);
+    const [allCategories,setAllCategories] = useState([]);
 
     useEffect(() => {
         AOS.init({
@@ -32,75 +36,98 @@ const AllProducts = () => {
          // Whether animation should happen only once - while scrolling down
         });
       }, []);
-      // useEffect(()=>{
-      //   const getData = async () => {
-      //     const {data} = await axios.get (
-      //       `http://localhost:5000/products`
-      //     )
-     
-      //     setProducts(data)
-      //   }
-      //   getData()
-      //  },[])
+      useEffect(() => {
+        const getData = async () => {
+            try {
+                const { data } = await axios.get('http://localhost:5000/products');
+                const categories = data.products.map(product => product.category); // Extract category names
+                const uniqueCategories = [...new Set(categories)]; // Remove duplicate category names
+                setAllCategories(uniqueCategories); // Set unique category names
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+    
+        getData();
+    }, []);
+      useEffect(() => {
+        const getData = async () => {
+            try {
+                const { data } = await axios.get('http://localhost:5000/products');
+                const brands = data.products.map(product => product.brand); // Extract brand names
+                const uniqueBrands = [...new Set(brands)]; // Remove duplicate brand names
+                setAllBrands(uniqueBrands); // Set unique brand names
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
 
-
-
-     useEffect(()=>{
-      const getData = async () => {
-        const {data} = await axios.get (
-          `http://localhost:5000/products?search=${search}`
-        )
+        getData();
+    }, []);
+      
    
-        setProducts(data)
-      }
-      getData()
-     },[search])
+
+      const getData = async () => {
+        const { data } = await axios.get(`http://localhost:5000/products`, {
+            params: {
+                search,
+                order,
+                brandFilter,
+                categoryFilter,
+                priceRange,
+                page: currentPage,
+                limit: 10,
+            }
+        });
+    
+        setProducts(data.products);
+        setTotalPages(data.totalPages);
+        
+    };
+    
+    useEffect(() => {
+        getData();
+     
+    }, [search, order, brandFilter, categoryFilter, priceRange, currentPage]);
+    
 
 
-     const handleSearch = (e) => {
-      e.preventDefault ()
-      const text = e.target.search.value
-      setSearch(text)
-      // console.log(text)
-     }
- 
-    const handleSortChange = (e) => {
-      const selectedSortOrder = e.target.value;
-      setOrder(selectedSortOrder);
-  
-      const sortedProducts = [...products].sort((a, b) => {
-          if (selectedSortOrder === "priceLowToHigh") {
-              return a.price - b.price; // Sort by price, low to high
-          } else if (selectedSortOrder === "priceHighToLow") {
-              return b.price - a.price; // Sort by price, high to low
-          } else if (selectedSortOrder === "dateNewestFirst") {
-            const dateA = new Date(a.createdAt);
-            const dateB = new Date(b.createdAt);
-            console.log(dateA, dateB); // Debugging: Check the dates
-            return dateA - dateB    ; // Sort by date, newest first
-        }
-          return 0; // Default, no sorting
-      });
-  
-      setProducts(sortedProducts);
+    const handleSearch = (e) => {
+      e.preventDefault();
+      const text = e.target.search.value;
+      setSearch(text);
+      setCurrentPage(1); // Reset to the first page after searching
   };
   
-  const filteredProducts = products.filter(product => {
-    let isBrandMatch = brandFilter ? product.brand === brandFilter : true;
-    let isCategoryMatch = categoryFilter ? product.category === categoryFilter : true;
-    let isPriceMatch = true;
+ 
+  const handleSortChange = (e) => {
+    const selectedSortOrder = e.target.value;
+    setOrder(selectedSortOrder);
+    setCurrentPage(1); // Reset to the first page after sorting
+};
 
-    if (priceRange === "low") {
-        isPriceMatch = product.price < 50;
-    } else if (priceRange === "medium") {
-        isPriceMatch = product.price >= 50 && product.price <= 100;
-    } else if (priceRange === "high") {
-        isPriceMatch = product.price > 100;
-    }
+  
+const handleBrandFilterChange = (e) => {
+  setBrandFilter(e.target.value);
+  setCurrentPage(1); // Reset to the first page after filtering
+};
 
-    return isBrandMatch && isCategoryMatch && isPriceMatch;
-});
+const handleCategoryFilterChange = (e) => {
+  setCategoryFilter(e.target.value);
+  setCurrentPage(1); // Reset to the first page after filtering
+};
 
+const handlePriceRangeChange = (e) => {
+  setPriceRange(e.target.value);
+  setCurrentPage(1); // Reset to the first page after filtering
+};
+
+
+const handlePageChange = (newPage) => {
+  if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+  }
+};
  
 
     return (
@@ -146,26 +173,26 @@ const AllProducts = () => {
        {/* sort and toogle end*/}
 
        <div className="flex items-center justify-between gap-6 font-raleway">
-        <select className="p-2 border border-green-300 rounded-md" value={brandFilter} onChange={e => setBrandFilter(e.target.value)}>
-        <option value="">Select Brand</option>
-        {products.map((product) => (
-            <option key={product._id} value={product.brand}>
-                {product.brand}
-            </option>
-        ))}
-        </select>
+       <select className="p-2 border border-green-300 rounded-md" value={brandFilter} onChange={handleBrandFilterChange}>
+                <option value="">Select Brand</option>
+                {allBrands.map((brand, index) => (
+                    <option key={index} value={brand}>
+                        {brand}
+                    </option>
+                ))}
+            </select>
 
-        <select className="p-2 border border-green-300 rounded-md" value={categoryFilter} onChange={e => setCategoryFilter(e.target.value)}>
-            <option value="">Select Category</option>
-            {/* Replace with your categories */}
-            {products.map((product) => (
-            <option key={product._id} value={product.category}>
-                {product.category}
-            </option>
-        ))}
-        </select>
+            <select className="p-2 border border-green-300 rounded-md" value={categoryFilter} onChange={handleCategoryFilterChange}>
+    <option value="">Select Category</option>
+    {allCategories.map((category, index) => (
+        <option key={index} value={category}>
+            {category}
+        </option>
+    ))}
+</select>
 
-        <select className="p-2 border border-green-300 rounded-md" value={priceRange} onChange={e => setPriceRange(e.target.value)}>
+
+        <select className="p-2 border border-green-300 rounded-md" value={priceRange} onChange={handlePriceRangeChange}>
             <option value="">Select Price Range</option>
             <option value="low">Low (below $50)</option>
             <option value="medium">$50 - $100</option>
@@ -179,7 +206,7 @@ const AllProducts = () => {
                  data-aos="fade-up-left" >
       {
  
- filteredProducts.map(product => 
+ products.map(product => 
          <div key={product._id}  className="card rounded-lg  bg-blue-50  text-black hover:bg-white shadow-lg borde hover:text-black border-blue-100 hover:border-purple-700 hover:transition hover:duration-1000 ease-in  cursor-pointer hover:shadow-2xl">
          <div className="relative h-[400px]">
          <figure className="h-full flex flex-grow w-full rounded-lg "><img className="h-full flex-grow w-full " src={product.image} alt="Food" /></figure>
@@ -219,6 +246,36 @@ const AllProducts = () => {
     
         
        </div>
+
+                {/* Pagination Controls */}
+                <div className="flex justify-center items-center mt-10">
+                    <button
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 mx-2 bg-gray-200 text-gray-700 rounded-full disabled:bg-gray-400"
+                    >
+                        Previous
+                    </button>
+
+                    {/* Page Numbers */}
+                    {[...Array(totalPages).keys()].map((num) => (
+                        <button
+                            key={num + 1}
+                            onClick={() => handlePageChange(num + 1)}
+                            className={`px-4 py-2 mx-2 rounded-full ${currentPage === num + 1 ? "bg-green-700 text-white" : "bg-gray-200 text-gray-700"}`}
+                        >
+                            {num + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 mx-2 bg-gray-200 text-gray-700 rounded-full disabled:bg-gray-400"
+                    >
+                        Next
+                    </button>
+                </div>
              </div>
  </div>
  
