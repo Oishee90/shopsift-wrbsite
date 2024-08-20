@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 // import { FaSearch } from 'react-icons/fa';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// import quantity from "../assets/dinner_4686140.png";
+import price from "../../assets/tag-removebg-preview.png";
+import date from "../../assets/add-event-removebg-preview.png";
+import categories from "../../assets/app-removebg-preview.png";
+import ratings from "../../assets/star-removebg-preview.png";
+import brand from "../../assets/brand__1_-removebg-preview.png";
 // import location from "../assets/placeholder_819814.png";
 // import ExpireDate from "../assets/expired_5632472.png";
+
 
 
 
@@ -86,12 +91,12 @@ const AllProducts = () => {
  {/* heading end */}
  <div>
  <div className='flex flex-col justify-center' data-aos="fade-up">
-                 <h1 className='text-center  p-5 text-4xl font-oswald font-semiboldbold'> Currently Available Meals</h1>
+                 <h1 className='text-center  p-5 text-4xl font-oswald font-semiboldbold'> Explore Our Premium Products</h1>
                  <div className='justify-center mx-auto border-b-2 h-px w-[100px]  border-green-700 '></div>
-                 <p className='text-center p-5 mx-auto mb-6 text-lg font-raleway '>Dive into our array of currently available meals, each designed to tantalize your taste buds. Enjoy the perfect blend of taste and quality in every bite. </p>
+                 <p className='text-center p-5 mx-auto mb-6 text-lg font-raleway '>Discover a curated selection of top-quality products designed to meet your needs and elevate your lifestyle. Whether you're looking for the latest tech gadgets, home essentials, or unique gifts, our diverse collection offers something for everyone. </p>
      
         {/* card start */}
-        <div  className="grid grid-cols-2 lg:grid-cols-3 gap-6 mt-10"
+        <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10"
                 
                  data-aos="fade-up-left" >
       {
@@ -104,24 +109,25 @@ const AllProducts = () => {
          </div>
          <div className="card-body">
          <div className="felx flex-col gap-3">
-        
+         <div className="flex items-center gap-3 mt-4 mb-4">
+     
+     <div className=" flex gap-10 justify-between items-center">
+       <div className=" flex gap-2 items-center text-base font-raleway font-medium"><img className="w-7 " src={brand} alt="" />{product.brand}</div>
+       <div className=" flex gap-2 items-center text-base font-raleway font-medium"> <img className="w-7 " src={categories} alt="" />{product.category}</div>
+     
+     </div>
+   </div>
            <h2 className="card-title font-extrabold font-oswald w-1/2">{product.name}:</h2>
            <div className=' border-b-2 h-px w-[61px]   border-green-700 mb-2 '></div>
                    
+
                  
            <p className="mb-4 font-raleway">{product.description}</p>
-       <p className="flex items-center gap-2 mt-3 font-oswald text-base  font-medium  ml-6"> <span className=" w-5"></span> Serve {product.price} person</p>
-       <p className="flex items-center gap-2 mt-3 font-oswald text-base font-medium ml-6"> <span className=" w-5"></span>Expire Date: {new Date(product.createdAt).toLocaleDateString()}</p>
-       <p className="flex items-center gap-2 mt-3 font-oswald text-base font-medium  ml-6"> <span className=" w-5"></span>Location: {product.ratings}</p>
+       <p className="flex items-center gap-2 mt-3 font-oswald text-base  font-medium  ml-6"><img className="w-5 " src={price} alt="" /> <span className="gap-0 text-red-500">{product.price}$</span></p>
+       <p className="flex items-center gap-2 mt-3 font-oswald text-base font-medium ml-6"> <img className="w-5 " src={date} alt="" /> <span className=" gap-0">Created Date: {new Date(product.createdAt).toLocaleDateString()}</span></p>
+       <p className="flex items-center gap-2 mt-3 font-oswald text-base font-medium  ml-6"><img className="w-5 " src={ratings} alt="" />Ratings: {product.ratings} <span className=" w-5"></span></p>
        
-       <div className="flex items-center gap-3 mt-4 mb-4">
      
-                   <div>
-                     <div className=" text-base font-raleway font-medium">{product.brand}</div>
-                     <div className="text-base font-raleway font-medium">{product.category}</div>
-                   
-                   </div>
-                 </div>
        <div className="card-actions justify-end">
              <Link to={`/food/${product._id}`}><button className="btn font-raleway text-xs font-bold rounded-xl bg-green-50 hover:bg-[#FFA62F] transition-all duration-300 ease-in-out border border-[#FFA62F]">View Details</button></Link>
           
