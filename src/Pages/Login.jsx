@@ -54,7 +54,8 @@ const Login = () => {
          <Helmet><title>ShopSift|Login</title></Helmet>
         <div className="hero flex lg:flex-row-reverse flex-col-reverse   md:flex-col-reverse min-h-screen bg-white " >
 <div className="text-center justify-start ml-4 w-1/2 mt-5 mb-5 h-full ">
-<h1 className="font-extrabold text-center text-xl md:text-4xl mb-3  font-ubuntu text-black">Login Now!!</h1>
+<h1 className="font-extrabold text-center text-xl md:text-4xl mb-3  font-ubuntu text-black">If you want visit this website </h1>
+<h1 className="font-extrabold text-center text-xl md:text-4xl mb-3  font-ubuntu text-black"> Please Login Now!!</h1>
 <div className='justify-start mx-auto border-b-2 h-px w-[81px]  border-[#55679C] mb-3'></div>
 <div className="card shadow-xl bg-white  h-full mb-9 w-full ">
 

@@ -14,6 +14,7 @@ import FirebaseProvider from './FirebaseProvider/FirebaseProvider';
 import { HelmetProvider } from 'react-helmet-async';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
+import PrivateRoute from './PrivateRoute/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element:<Home></Home>
+        element:<PrivateRoute><Home></Home></PrivateRoute>
       },
       {
         path: "/login",
