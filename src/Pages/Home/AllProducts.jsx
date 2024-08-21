@@ -1,8 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { FaSearch } from 'react-icons/fa';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
 import price from "../../assets/tag-removebg-preview.png";
 import date from "../../assets/add-event-removebg-preview.png";
 import categories from "../../assets/app-removebg-preview.png";
@@ -29,13 +28,7 @@ const AllProducts = () => {
     const [allBrands, setAllBrands] = useState([]);
     const [allCategories,setAllCategories] = useState([]);
 
-    useEffect(() => {
-        AOS.init({
-          duration: 1000, // Animation duration
-          easing: 'ease-in-out', // Easing function
-         // Whether animation should happen only once - while scrolling down
-        });
-      }, []);
+   
       useEffect(() => {
         const getData = async () => {
             try {
@@ -134,7 +127,7 @@ const handlePageChange = (newPage) => {
         <div id='shop' className="container mx-auto mt-20 mb-20">
    
  <div>
- <div className='flex flex-col justify-center' data-aos="fade-up">
+ <div className='flex flex-col justify-center' >
                  <h1 className='text-center  p-5 text-4xl font-oswald font-semiboldbold'> Explore Our Premium Products</h1>
                  <div className='justify-center mx-auto border-b-2 h-px w-[100px]  border-green-700 '></div>
                  <p className='text-center p-5 mx-auto mb-6 text-lg font-raleway '>Discover a curated selection of top-quality products designed to meet your needs and elevate your lifestyle. Whether you're looking for the latest tech gadgets, home essentials, or unique gifts, our diverse collection offers something for everyone. </p>
@@ -225,7 +218,7 @@ const handlePageChange = (newPage) => {
 
                  
            <p className="mb-4 font-raleway">{product.description}</p>
-       <p className="flex items-center gap-2 mt-3 font-oswald text-base  font-medium  ml-6"><img className="w-5 " src={price} alt="" /> <span className="gap-0 text-red-500">{product.price}$</span></p>
+       <p className="flex items-center gap-2 mt-3 font-oswald text-base  font-medium  ml-6"><img className="w-5 " src={price} alt="" /> <span className="gap-0 text-red-500">Price{product.price}$</span></p>
        <p className="flex items-center gap-2 mt-3 font-oswald text-base font-medium ml-6"> <img className="w-5 " src={date} alt="" /> <span className=" gap-0">Created Date: {new Date(product.createdAt).toLocaleDateString()}</span></p>
        <p className="flex items-center gap-2 mt-3 font-oswald text-base font-medium  ml-6"><img className="w-5 " src={ratings} alt="" />Ratings: {product.ratings} <span className=" w-5"></span></p>
        
