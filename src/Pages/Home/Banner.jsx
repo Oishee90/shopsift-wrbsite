@@ -57,7 +57,7 @@ const Banner = () => {
     loop: true,
   }}
 /></p> */}
-    <Link to={"/availablefood"}  className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71] transition duration-300 ease-in"> Explore now</Link>
+    <Link  className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71] transition duration-300 ease-in"> Explore now</Link>
   </div>
   </div>
           </div>
@@ -81,7 +81,7 @@ const Banner = () => {
     loop: true,
   }}
 /></p> */}
-    <Link to={"/availablefood"}  className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71] transition duration-300 ease-in"> Explore now</Link>
+    <Link   className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71] transition duration-300 ease-in"> Explore now</Link>
   </div>
   </div>
           </div>
@@ -107,7 +107,7 @@ const Banner = () => {
     loop: true,
   }}
 /></p> */}
-    <Link to={"/availablefood"}  className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71] transition duration-300 ease-in"> Explore now</Link>
+    <Link className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71] transition duration-300 ease-in"> Explore now</Link>
   </div>
   </div>
           </div>
@@ -131,7 +131,7 @@ const Banner = () => {
     loop: true,
   }}
 /></p> */}
-    <Link to={"/availablefood"}  className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71]transition duration-300 ease-in"> Explore now</Link>
+    <Link  className="inline-block px-6 py-3  text-white font-semibold rounded-full shadow-lg bg-[#55679C] hover:bg-[#404d71]transition duration-300 ease-in"> Explore now</Link>
   </div>
   </div>
           </div>

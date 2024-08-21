@@ -1,5 +1,6 @@
 
-import { Link, NavLink, } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from "react-scroll";
 import logo from '../assets/Orange_and_Gray_Tag_Cart_Virtual_Shop_Logo-removebg-preview.png'
 import { PiDotsThreeCircleVerticalFill } from "react-icons/pi";
 import UseAuth from '../hook/useAuth';
@@ -8,10 +9,11 @@ const Header = () => {
     const {logOut,user} = UseAuth()
    
     const navlinks = <>
-    <li className={`font-oswald text-xs lg:text-lg ml-5   `}  id="sidebar"><NavLink to={"/"}>Home</NavLink></li>
+    <li className={`font-oswald text-xs lg:text-lg ml-5   `}  id="sidebar"><Link to={"/"}>Home</Link></li>
     
-    <li className={`font-oswald text-xs lg:text-lg ml-5  `} id="sidebar"> <NavLink >Shop</NavLink></li>
-
+    <li className="font-oswald text-xs lg:text-lg ml-5 " > <ScrollLink className="flex items-center justify-center gap-3" to="shop" smooth={true} duration={500}>
+                  Shop
+                </ScrollLink></li>
     
   </>
      

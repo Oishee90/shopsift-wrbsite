@@ -16,7 +16,7 @@ const Footer = () => {
     <img src={logo} className="md:h-16 h-8 w-auto" alt="Logo" />
    <h1 className="text-5xl font-oswald text-black">Shop<span className="text-[#55679C]">Sift</span></h1></div>
    <p  className="mt-5 mb-5 text-base md:text lg">Stay Connected with ShopSift</p>
-   <p className=" text-base md:text lg"> Connect with fellow food enthusiasts, share your meal, and join in on exciting discussions.</p>
+   <p className=" text-base md:text lg"> Thanks for visiting our store! Follow us on social media for the latest updates and exclusive offers.</p>
     </div>
 
     <div>

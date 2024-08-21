@@ -131,11 +131,8 @@ const handlePageChange = (newPage) => {
  
 
     return (
-        <div className="container mx-auto mt-20 mb-20">
+        <div id='shop' className="container mx-auto mt-20 mb-20">
    
-         {/* heading start */}
-
- {/* heading end */}
  <div>
  <div className='flex flex-col justify-center' data-aos="fade-up">
                  <h1 className='text-center  p-5 text-4xl font-oswald font-semiboldbold'> Explore Our Premium Products</h1>
